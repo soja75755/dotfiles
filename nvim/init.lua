@@ -6,3 +6,6 @@ require("keymaps")
 
 -- load Packervim
 require("plugins")
+
+-- Set LSP
+require("lsp")

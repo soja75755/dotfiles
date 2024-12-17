@@ -32,4 +32,79 @@ vim.opt.rtp:prepend(lazypath)
 --     keys: string? | string[] | LazyKeysSpec table
 --           Lazy-load on key mapping
 --     opts: The table will be passed to the require(...).setup(opts)
-require("lazy").setup({})
+require("lazy").setup({
+    -- LSP manager
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	"neovim/nvim-lspconfig",
+    -- Vscode-like pictograms
+	{
+		"onsails/lspkind.nvim",
+		event = { "VimEnter" },
+	},
+	-- Auto-completion engine
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"lspkind.nvim",
+			"hrsh7th/cmp-nvim-lsp", -- lsp auto-completion
+			"hrsh7th/cmp-buffer", -- buffer auto-completion
+			"hrsh7th/cmp-path", -- path auto-completion
+			"hrsh7th/cmp-cmdline", -- cmdline auto-completion
+		},
+		config = function()
+			require("config.nvim-cmp")
+		end,
+	},
+    -- File explorer
+	{
+		"nvim-tree/nvim-tree.lua",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons", -- optional, for file icons
+		},
+		config = function()
+			require("config.nvim-tree")
+		end,
+	},
+    -- Show indentation and blankline
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		config = function()
+			require("config.indent-blankline")
+		end,
+	},
+    -- Better terminal integration
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = function()
+			require("config.toggleterm")
+		end,
+	},
+    -- Git integration
+	"tpope/vim-fugitive",
+	-- Git decorations
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("config.gitsigns")
+		end,
+	},
+	-- Autopairs: [], (), "", '', etc
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("config.nvim-autopairs")
+		end,
+	},
+    -- Status line
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("config.lualine")
+		end,
+	},
+})
